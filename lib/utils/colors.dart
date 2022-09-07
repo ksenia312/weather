@@ -3,30 +3,61 @@ import 'package:flutter/material.dart';
 abstract class AppColors {
   get scaffold {}
 
-  get appBar {}
+  get appBarBackground {}
+
+  get primaryLight {}
 
   get foreground {}
 
+  get accentForeground {}
+
+  get dividerColor {}
+
+  get error {}
 }
 
 class ColorsLight implements AppColors {
   @override
-  get appBar => const Color(0xFFFCFDFF);
+  get appBarBackground => const Color(0xFFFCFDFF);
 
   @override
-  get scaffold => const Color(0xFFFCFDFF);
+  get scaffold => const Color(0xFFF7F9FD);
 
   @override
-  get foreground => Colors.indigo.shade900;
+  get foreground => Colors.indigo;
+
+  @override
+  get primaryLight => const Color(0xFFFCFDFF);
+
+  @override
+  get accentForeground => Colors.indigo.shade900;
+
+  @override
+  get dividerColor => Colors.indigo.shade500;
+
+  @override
+  get error => const Color(0xFF8F0A31);
 }
 
 class ColorsDark implements AppColors {
   @override
-  get appBar => const Color(0xff08224f);
+  get appBarBackground => const Color(0xff090e3f);
 
   @override
-  get scaffold => const Color(0xff04183a);
+  get scaffold => const Color(0xff0e1452);
 
   @override
   get foreground => const Color(0xFFD9DEEA);
+
+  @override
+  get primaryLight => const Color(0xff181f6b);
+
+  @override
+  get accentForeground => const Color(0xFFD9DEEA);
+
+  @override
+  get dividerColor => const Color(0xFFD9DEEA);
+
+  @override
+  get error => const Color(0xFFFF9EC6);
 }

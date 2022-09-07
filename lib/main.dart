@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'screens/home_screen.dart';
+import 'ui/home_screen/home_screen.dart';
+import 'utils/providers.dart';
 import 'utils/theme.dart';
 
 void main() async {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  final SharedPreferences _prefs = await SharedPreferences.getInstance();
+  AppTheme.setTheme(isDark: _prefs.getBool('isDark') ?? true);
+  runApp(MultiProvider(providers: providers, child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -16,23 +22,17 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() {
-    super.initState();
-    appTheme.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    print(appTheme.currentTheme);
-    return MaterialApp(
-      title: 'Weather',
-      debugShowCheckedModeBanner: false,
-      theme: appTheme.light,
-      darkTheme: appTheme.dark,
-      themeMode: appTheme.currentTheme,
-      home: const HomeScreen(),
-    );
+    return Consumer<AppTheme>(
+        builder: (BuildContext context, AppTheme appTheme, Widget? child) {
+      return MaterialApp(
+        title: 'Weather',
+        debugShowCheckedModeBanner: false,
+        theme: appTheme.light,
+        darkTheme: appTheme.dark,
+        themeMode: appTheme.themeMode,
+        home: const HomeScreen(),
+      );
+    });
   }
 }

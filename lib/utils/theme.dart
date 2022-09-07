@@ -3,39 +3,59 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class AppTheme with ChangeNotifier {
-  bool _isDark = false;
+  static bool _isDark = true;
 
-  ThemeMode get currentTheme {
+  ThemeMode get themeMode {
     return _isDark ? ThemeMode.dark : ThemeMode.light;
   }
 
-  ThemeData _basicTheme({required AppColors appColors}) => ThemeData(
-        scaffoldBackgroundColor: appColors.scaffold,
+  ThemeData _theme({required AppColors appColors}) => ThemeData(
+        brightness: _isDark ? Brightness.dark : Brightness.light,
         primarySwatch: Colors.indigo,
-        textTheme: TextTheme(
-            bodySmall: _textStyle(appColors: appColors, fontSize: 12),
-            bodyMedium: _textStyle(appColors: appColors, fontSize: 16),
-            bodyLarge: _textStyle(appColors: appColors, fontSize: 18)),
-        appBarTheme: AppBarTheme(
-          backgroundColor: appColors.appBar,
-          foregroundColor: appColors.foreground,
-          iconTheme: IconThemeData(color: appColors.foreground),
-          elevation: 3,
-        ),
+        scaffoldBackgroundColor: appColors.scaffold,
+        dividerColor: appColors.dividerColor,
+        primaryColorLight: appColors.primaryLight,
+        errorColor: appColors.error,
+        textTheme: _textTheme(appColors),
+        iconTheme: IconThemeData(color: appColors.accentForeground),
+        appBarTheme: _appBarTheme(appColors),
+        progressIndicatorTheme:
+            ProgressIndicatorThemeData(color: appColors.foreground),
+        outlinedButtonTheme: _outlinedButtonTheme(appColors),
       );
 
-  TextStyle _textStyle(
-          {required AppColors appColors, required double fontSize}) =>
-      TextStyle(color: appColors.foreground, fontSize: fontSize);
+  TextTheme _textTheme(AppColors appColors) => TextTheme(
+        bodySmall: TextStyle(color: appColors.foreground, fontSize: 13),
+        bodyMedium: TextStyle(color: appColors.foreground, fontSize: 16),
+        bodyLarge: TextStyle(color: appColors.foreground, fontSize: 18),
+      );
 
-  ThemeData get light => _basicTheme(appColors: ColorsLight());
+  AppBarTheme _appBarTheme(appColors) => AppBarTheme(
+        backgroundColor: appColors.appBarBackground,
+        foregroundColor: appColors.accentForeground,
+        iconTheme: IconThemeData(color: appColors.accentForeground),
+        elevation: 3,
+      );
 
-  ThemeData get dark => _basicTheme(appColors: ColorsDark());
+  OutlinedButtonThemeData _outlinedButtonTheme(appColors) =>
+      OutlinedButtonThemeData(
+        style: ButtonStyle(
+            foregroundColor:
+                MaterialStateProperty.all<Color?>(appColors.foreground),
+            side: MaterialStateProperty.all<BorderSide?>(
+                BorderSide(color: appColors.foreground))),
+      );
+
+  ThemeData get light => _theme(appColors: ColorsLight());
+
+  ThemeData get dark => _theme(appColors: ColorsDark());
 
   toggleTheme() {
     _isDark = !_isDark;
     notifyListeners();
   }
-}
 
-AppTheme appTheme = AppTheme();
+  static setTheme({required bool isDark}) {
+    _isDark = isDark;
+  }
+}
