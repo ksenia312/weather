@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-
+/// Виджет [BugReport] для отображения заданной ошибки
 class BugReport extends StatefulWidget {
   final String error;
 
@@ -18,6 +18,7 @@ class _BugReportState extends State<BugReport> {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(widget.error)));
     });
+    // отрисовка по расписанию - когда виджет отрисуется и у него появится context
     super.initState();
   }
 

@@ -7,15 +7,17 @@ part 'history_event.dart';
 
 part 'history_state.dart';
 
+/// [HistoryBloc] - для локального state-management'а истории погоды
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final HistoryRepository historyRepository;
 
   HistoryBloc(this.historyRepository) : super(HistoryLoading()) {
     on<LoadHistoryEvent>((event, emit) async {
+      // когда вызывается LoadHistoryEvent выполняются действия ниже
       try {
         DateTime date = DateTime.now();
         List<HistoryModel?> loadedHistory = [];
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 0; i < 3; i++) {
           loadedHistory.add(await historyRepository.loadWeatherByDate(
               date.subtract(Duration(days: i)).toString().substring(0, 10),
               event.city));
@@ -25,5 +27,6 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         emit(HistoryError(err: e.toString()));
       }
     });
+    // в конце всегда возвращаем обновленное состояние HistoryState
   }
 }

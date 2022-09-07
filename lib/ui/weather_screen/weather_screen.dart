@@ -9,6 +9,8 @@ import '../history_screen/history_screen.dart';
 import 'widgets/additional_info_box.dart';
 import 'widgets/temperature_box.dart';
 
+/// Экран [WeatherScreen] содержит основную информацию
+/// о прогнозе погоды на данный момент в выбранном городе
 class WeatherScreen extends StatefulWidget {
   final String city;
 
@@ -25,50 +27,57 @@ class _WeatherScreenState extends State<WeatherScreen> {
       create: (context) => WeatherBloc(
         RepositoryProvider.of<WeatherRepository>(context),
       )..add(LoadWeatherEvent(name: widget.city)),
+      // создание провайдера WeatherBloc с данными из WeatherRepository
+      // сразу же добавление события подгрузки данных о погоде
+
       child: BlocBuilder<WeatherBloc, WeatherState>(
         builder: (context, WeatherState state) {
+          // BlocBuilder для получения доступа к WeatherState
           return Scaffold(
-              appBar: AppBar(
-                title: const Text('Weather: Now'),
-                actions: [
-                  IconButton(
-                      onPressed: state is WeatherLoaded
-                          ? () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        HistoryScreen(weather: state)),
-                              );
-                            }
-                          : null,
-                      icon: const Icon(Icons.list))
-                ],
-              ),
-              body: state is WeatherLoaded
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
+            appBar: AppBar(
+              title: const Text('Weather: Now'),
+              actions: [
+                IconButton(
+                    onPressed: state is WeatherLoaded
+                        ? () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      HistoryScreen(weather: state)),
+                              // перенаправление на экран истории за 3 дня
+                            );
+                          }
+                        : null,
+                    icon: const Icon(Icons.list))
+              ],
+            ),
+            body: state is WeatherLoaded
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                            width: double.infinity,
+                            child: TemperatureBox(current: state.current)),
+                        SizedBox(
+                            width: double.infinity,
+                            child: AdditionalInfoBox(current: state.current)),
+                        Hero(
+                          tag: 'location',
+                          child: SizedBox(
                               width: double.infinity,
-                              child: TemperatureBox(current: state.current)),
-                          SizedBox(
-                              width: double.infinity,
-                              child: AdditionalInfoBox(current: state.current)),
-                          Hero(
-                            tag: 'location',
-                            child: SizedBox(
-                                width: double.infinity,
-                                child: LocationBox(current: state.current)),
-                          ),
-                        ],
-                      ),
-                    )
-                  : state is WeatherLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : BugReport(
-                          error: state.error ?? 'Something went wrong'));
+                              child: LocationBox(current: state.current)),
+                        ), // виджет для анимации между экранами
+                      ],
+                    ),
+                  )
+                : state is WeatherLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    // виджет загрузки
+                    : BugReport(error: state.error ?? 'Something went wrong'),
+          ); // виджет с ошибкой
+          // отрисовка контента в зависимости от состояния WeatherState
         },
       ),
     );

@@ -7,11 +7,13 @@ part 'selection_event.dart';
 
 part 'selection_state.dart';
 
+/// [SelectionBloc] - для локального state-management'а опций ввода
 class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
   final SelectionRepository selectionRepository;
 
   SelectionBloc(this.selectionRepository) : super(SelectionInit()) {
     on<LoadSelectionsEvent>((event, emit) async {
+      // когда вызывается LoadSelectionsEvent выполняются действия ниже
       emit(SelectionLoading());
       try {
         final currentSelections =
@@ -22,7 +24,9 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
       }
     });
     on<SetInitEvent>((event, emit) async {
+      // когда вызывается SetInitEvent выполняются действия ниже
       emit(SelectionInit());
     });
+    // в конце всегда возвращаем обновленное состояние SelectionState
   }
 }

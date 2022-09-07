@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+/// [selectionModelFromJson] - вызов фабричного конструктора с декодированным json
 List<SelectionModel> selectionModelFromJson(String str) =>
     (json.decode(str) as List).map((e) => SelectionModel.fromJson(e)).toList();
 
+/// Модель данных [SelectionModel] - содержит вид данных опции
 class SelectionModel {
   final String name;
   final String region;

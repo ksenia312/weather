@@ -10,6 +10,7 @@ import 'package:weather/widgets/unit_dropdown.dart';
 
 import 'widgets/history_items.dart';
 
+/// Экран [HistoryScreen] для отображения данных о погоде за прошлые 3 дня
 class HistoryScreen extends StatefulWidget {
   final WeatherState weather;
 
@@ -21,7 +22,11 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   bool _sortByTemp = true;
+
+  // состояние сортировки
   bool _showCelsius = true;
+
+  // какие единицы измерения отображать
 
   _onChanged(bool? value) {
     setState(() {
@@ -35,6 +40,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
       create: (context) => HistoryBloc(
         RepositoryProvider.of<HistoryRepository>(context),
       )..add(LoadHistoryEvent(city: widget.weather.current?.city ?? '')),
+      // создание провайдера HistoryBloc с данными из HistoryRepository
+      // сразу же добавление события подгрузки данных об истории погоды
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -43,6 +50,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ),
         body: BlocBuilder<HistoryBloc, HistoryState>(
           builder: (context, HistoryState state) {
+            // BlocBuilder для получения доступа к HistoryState
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: state is HistoryError
@@ -56,9 +64,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               child:
                                   LocationBox(current: widget.weather.current)),
                         ),
+                        // виджет для анимации между экранами
                         if (state is HistoryLoaded)
                           UnitDropdown(
                               showCelsius: _showCelsius, onChanged: _onChanged),
+                        // кастомный дропдаун с выбором единиц измерения
                         state is HistoryLoaded
                             ? HistoryItems(
                                 state: state,
@@ -73,6 +83,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         if (state is HistoryLoaded) _switch
                       ],
                     ),
+              // отрисовка контента в зависимости от состояния WeatherState
             );
           },
         ),
@@ -86,7 +97,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           const SizedBox(
             width: 150,
             child: FormattedText(
-              title: 'Sort by decreasing average temperature',
+              title: 'Sort by increasing average temperature',
               textAlign: TextAlign.center,
             ),
           ),
@@ -100,4 +111,5 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
         ],
       );
+// переключение состояний сортировки
 }

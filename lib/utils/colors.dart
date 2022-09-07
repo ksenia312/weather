@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Абстрактный класс [AppColors] для задания цветов приложения
 abstract class AppColors {
   get scaffold {}
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+/// Класс [Delayer] для поиска по началу ввода с задержкой
 class Delayer {
   final int milliseconds;
   Timer? _timer;

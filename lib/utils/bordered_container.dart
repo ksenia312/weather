@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// [BorderedContainer] - обертка контейнером с заданной обводкой
 class BorderedContainer extends StatelessWidget {
   final Widget child;
   final bool isSecondary;
@@ -29,4 +30,5 @@ class BorderedContainer extends StatelessWidget {
             width: 1.5),
         borderRadius: const BorderRadius.all(Radius.circular(4.0)),
       );
+// отрисовка 2 видов - по дефолту primary, можно задать secondary
 }

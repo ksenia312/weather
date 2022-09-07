@@ -5,6 +5,7 @@ import 'package:weather/data/models/history_model.dart';
 import 'package:weather/utils/bordered_container.dart';
 import 'package:weather/utils/formatted_text.dart';
 
+/// Виджет [HistoryItems] для отображения блоков погоды за последние 3 дня
 class HistoryItems extends StatefulWidget {
   final HistoryState state;
   final bool sortByTemp;
@@ -32,18 +33,24 @@ class _HistoryItemsState extends State<HistoryItems> {
 
   Column _drawItems(HistoryState state) {
     var sortedHistory = createCopy(state);
+    // создание локальной копии списка элементов истории для сортировки или
+    // возвращения исходного состояния
     if (widget.sortByTemp) {
       widget.showCelsius
           ? sortedHistory.sort((a, b) => a!.avgTempC.compareTo(b!.avgTempC))
           : sortedHistory.sort((a, b) => a!.avgTempF.compareTo(b!.avgTempF));
+      // реализация сортировки по возрастанию средней температуры
     } else {
       sortedHistory = createCopy(state);
+      // возвращения исходного состояния если сортировка не включена
     }
     return Column(
         children: sortedHistory.map((e) {
       DateTime date = DateTime.parse(e?.date ?? ' ');
       String formattedDate = DateFormat('dd.MM').format(date);
+      // форматирование даты
       String relatedDate = getRelatedDateName(date);
+      // создание относительной даты (сегодня/вчера)
 
       return BorderedContainer(
           isSecondary: true,
@@ -66,6 +73,7 @@ class _HistoryItemsState extends State<HistoryItems> {
   }
 
   _drawColdest(HistoryModel? e) => Container(
+        // блок с информированием о том, что в этот день температура самая низкая
         margin: const EdgeInsets.only(top: 10.0),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
@@ -84,6 +92,7 @@ class _HistoryItemsState extends State<HistoryItems> {
       );
 
   _drawTemperatures(HistoryModel? e) => Row(
+        // отрисовка температур в формате колонок
         mainAxisSize: MainAxisSize.min,
         children: [
           Column(
@@ -127,15 +136,16 @@ class _HistoryItemsState extends State<HistoryItems> {
       );
 
   String getRelatedDateName(DateTime date) {
+    // функция получения относительной даты
     var dateNow = DateTime.now();
     var difference = dateNow.difference(date).inDays;
     switch (difference) {
+      case 0:
+        return 'Today';
       case 1:
         return 'Yesterday';
       case 2:
         return '2 days ago';
-      case 3:
-        return '3 days ago';
       default:
         return '';
     }

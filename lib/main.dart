@@ -6,11 +6,23 @@ import 'ui/home_screen/home_screen.dart';
 import 'utils/providers.dart';
 import 'utils/theme.dart';
 
+/// Точка входа в приложение [main]
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // инициализация взаимодействия с движком Flutter для SharedPreferences
+
   final SharedPreferences _prefs = await SharedPreferences.getInstance();
+  // инициализация возможности брать сохраненные на устройстве данные
+
   AppTheme.setTheme(isDark: _prefs.getBool('isDark') ?? true);
-  runApp(MultiProvider(providers: providers, child: const MyApp()));
+  // установка темы, если она была сохранена на устройстве раннее
+
+  runApp(
+    MultiProvider(
+      providers: providers, // список провайдеров, вынесенный в отдельный файл
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -24,6 +36,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppTheme>(
+        // получение темы из провайдера с помощью Consumer
         builder: (BuildContext context, AppTheme appTheme, Widget? child) {
       return MaterialApp(
         title: 'Weather',

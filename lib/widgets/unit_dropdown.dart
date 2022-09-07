@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Виджет [UnitDropdown] для управления состоянием отображения единиц измерения
 class UnitDropdown extends StatelessWidget {
   final bool showCelsius;
   final void Function(bool?)? onChanged;
@@ -14,7 +15,7 @@ class UnitDropdown extends StatelessWidget {
         value: showCelsius,
         style: Theme.of(context).textTheme.bodyMedium,
         iconEnabledColor: Theme.of(context).dividerColor,
-        dropdownColor:Theme.of(context).primaryColorLight,
+        dropdownColor: Theme.of(context).primaryColorLight,
         isExpanded: true,
         underline: Divider(
           thickness: 1,

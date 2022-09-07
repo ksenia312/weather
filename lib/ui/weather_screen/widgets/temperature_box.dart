@@ -3,6 +3,7 @@ import 'package:weather/data/models/weather_model.dart';
 import 'package:weather/utils/formatted_text.dart';
 import 'package:weather/widgets/unit_dropdown.dart';
 
+/// Виджет [TemperatureBox] для отображение данных о температуре на данных момент
 class TemperatureBox extends StatefulWidget {
   final WeatherModel? current;
 
@@ -19,7 +20,7 @@ class _TemperatureBoxState extends State<TemperatureBox> {
     setState(() {
       _showCelsius = value!;
     });
-  }
+  } // функция переключения отображаемых единиц измерения
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +44,7 @@ class _TemperatureBoxState extends State<TemperatureBox> {
         ),
         _descriptionRow,
         UnitDropdown(showCelsius: _showCelsius, onChanged: _onChanged)
+        // кастомный dropdown с выбором единиц измерения
       ],
     );
   }
@@ -54,14 +56,16 @@ class _TemperatureBoxState extends State<TemperatureBox> {
             widget.current?.text != null ? '${widget.current?.text} ' : ' - ',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
+          // отображение состояния погоды текстовым описанием
           Image.network(
             widget.current?.icon != null ? 'https:${widget.current?.icon}' : '',
             width: 30,
             height: 30,
             errorBuilder: (_, __, ___) {
               return const Icon(Icons.emoji_emotions_outlined);
+              // отображается, если иконка с сервера недоступна
             },
-          ),
+          ), // отображение иконки из API
         ],
       );
 }

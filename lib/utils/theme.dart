@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
+/// [AppTheme] - класс для задания кастомных тем,
+/// который обновляется с помощью [ChangeNotifier]
 class AppTheme with ChangeNotifier {
   static bool _isDark = true;
 
   ThemeMode get themeMode {
     return _isDark ? ThemeMode.dark : ThemeMode.light;
   }
+
+  // получение данной темы
 
   ThemeData _theme({required AppColors appColors}) => ThemeData(
         brightness: _isDark ? Brightness.dark : Brightness.light,
@@ -47,9 +51,14 @@ class AppTheme with ChangeNotifier {
                 BorderSide(color: appColors.foreground))),
       );
 
+  // выше задаются все кастомные параметры темы в зависимости от AppColors
+
   ThemeData get light => _theme(appColors: ColorsLight());
 
   ThemeData get dark => _theme(appColors: ColorsDark());
+
+  // создание геттеров темной и светлой темы с параметрами ColorsLight/ColorsDark,
+  // которые имплементируют AppColors
 
   toggleTheme() {
     _isDark = !_isDark;

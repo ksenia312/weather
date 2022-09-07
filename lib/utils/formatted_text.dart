@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// [FormattedText] - текст, который можно частично отобразить со стилем [FontWeight.bold]
 class FormattedText extends StatelessWidget {
   final String? title;
   final String? description;

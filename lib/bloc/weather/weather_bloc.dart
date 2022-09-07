@@ -7,11 +7,13 @@ part 'weather_event.dart';
 
 part 'weather_state.dart';
 
+/// [WeatherBloc] - для локального state-management'а информации о погоде
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final WeatherRepository _cityRepository;
 
   WeatherBloc(this._cityRepository) : super(WeatherLoading()) {
     on<LoadWeatherEvent>((event, emit) async {
+      // когда вызывается LoadWeatherEvent выполняются действия ниже
       emit(WeatherLoading());
       try {
         final city = await _cityRepository.loadWeatherByName(event.name);
@@ -20,5 +22,6 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         emit(WeatherError(err: e.toString()));
       }
     });
+    // в конце всегда возвращаем обновленное состояние WeatherState
   }
 }

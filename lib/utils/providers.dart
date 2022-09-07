@@ -7,6 +7,7 @@ import '../data/repositories/weather_repository.dart';
 import '../data/repositories/selection_repository.dart';
 import 'theme.dart';
 
+/// Задание списка [providers] - провайдеров приложения
 final List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => AppTheme()),
   RepositoryProvider(create: (context) => WeatherRepository()),

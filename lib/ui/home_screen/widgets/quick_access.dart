@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:weather/utils/navigator.dart';
 
+/// Виджет [QuickAccess] содержит кнопки с переходом на экран
+/// прогноза погоды для популярных городов
 class QuickAccess extends StatefulWidget {
   const QuickAccess({Key? key}) : super(key: key);
+
+  @override
+  State<QuickAccess> createState() => _QuickAccessState();
+}
+
+class _QuickAccessState extends State<QuickAccess> {
   static const quickAccessCities = [
     'London',
     'Saint-Petersburg',
@@ -13,14 +21,12 @@ class QuickAccess extends StatefulWidget {
     'Rome',
     'Paris',
     'Dubai',
-    'Ri'
+    'Riga'
   ];
 
-  @override
-  State<QuickAccess> createState() => _QuickAccessState();
-}
-
-class _QuickAccessState extends State<QuickAccess> {
+  // статический список популярных городов
+  // масштабируется до получения популярных городов с API
+  // или добавление ближайших городов по локации пользователя
   @override
   Widget build(BuildContext context) {
     return GridView.count(
@@ -32,10 +38,11 @@ class _QuickAccessState extends State<QuickAccess> {
         scrollDirection: Axis.vertical,
         childAspectRatio: 25 / 9,
         shrinkWrap: true,
-        children: QuickAccess.quickAccessCities
+        children: quickAccessCities
             .map((city) => ElevatedButton(
                   onPressed: () {
                     AppNavigator.of(context).pushToCity(city: city);
+                    // перенаправление на новый экран кастомным навигатором
                   },
                   child: Center(
                       child: Text(

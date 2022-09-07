@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+/// [historyModelFromJson] - вызов фабричного конструктора с декодированным json
 HistoryModel historyModelFromJson(String str) =>
     HistoryModel.fromJson(json.decode(str));
 
+/// Модель данных [HistoryModel] - содержит вид данных истории
 class HistoryModel {
   final String date;
   final double maxTempC;
@@ -22,6 +24,7 @@ class HistoryModel {
     required this.avgTempF,
   });
 
+  // фабричный конструктор с объявлением полей класса из параметра json
   factory HistoryModel.fromJson(Map<String, dynamic> json) => HistoryModel(
         date: json["forecast"]["forecastday"].first["date"] ?? "",
         maxTempC:

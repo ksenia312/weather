@@ -3,6 +3,7 @@ import 'package:weather/data/models/weather_model.dart';
 import 'package:weather/utils/formatted_text.dart';
 import 'package:weather/utils/bordered_container.dart';
 
+/// Виджет [LocationBox] для отображения данных о местоположении
 class LocationBox extends StatelessWidget {
   final WeatherModel? current;
 

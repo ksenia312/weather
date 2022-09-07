@@ -3,6 +3,7 @@ import 'package:weather/data/models/weather_model.dart';
 import 'package:weather/utils/formatted_text.dart';
 import 'package:weather/utils/bordered_container.dart';
 
+/// Виджет [AdditionalInfoBox] для отображения дополнительной информации о погоде
 class AdditionalInfoBox extends StatelessWidget {
   final WeatherModel? current;
 
@@ -23,8 +24,9 @@ class AdditionalInfoBox extends StatelessWidget {
                 scale: 1.1),
             FormattedText(
                 title: 'Wind Speed: ',
-                description:
-                    current?.windKph != null ? '${current?.windKph} km/hour' : ' - ',
+                description: current?.windKph != null
+                    ? '${current?.windKph} km/hour'
+                    : ' - ',
                 scale: 1.1),
           ],
         ));

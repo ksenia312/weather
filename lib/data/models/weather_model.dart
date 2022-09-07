@@ -1,7 +1,10 @@
 import 'dart:convert';
 
-WeatherModel weatherModelFromJson(String str) => WeatherModel.fromJson(json.decode(str));
+/// [weatherModelFromJson] - вызов фабричного конструктора с декодированным json
+WeatherModel weatherModelFromJson(String str) =>
+    WeatherModel.fromJson(json.decode(str));
 
+/// Модель данных [WeatherModel] - содержит вид данных погоды
 class WeatherModel {
   final String city;
   final String region;
@@ -15,7 +18,7 @@ class WeatherModel {
   final double feelsLikeC;
   final double feelsLikeF;
 
-  WeatherModel( {
+  WeatherModel({
     required this.city,
     required this.region,
     required this.country,
@@ -34,7 +37,7 @@ class WeatherModel {
         region: json["location"]["region"] ?? "",
         country: json["location"]["country"] ?? "",
         tempC: json["current"]["temp_c"] ?? "",
-    tempF: json["current"]["temp_f"] ?? "",
+        tempF: json["current"]["temp_f"] ?? "",
         text: json["current"]["condition"]["text"] ?? "",
         icon: json["current"]["condition"]["icon"] ?? "",
         windKph: json["current"]["wind_mph"] ?? "",
