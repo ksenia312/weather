@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:weather/data/models/city_model.dart';
+import 'package:weather/data/models/weather_model.dart';
 import 'package:weather/utils/formatted_text.dart';
 import 'package:weather/utils/bordered_container.dart';
 
 class AdditionalInfoBox extends StatelessWidget {
-  final CityModel? city;
+  final WeatherModel? current;
 
-  const AdditionalInfoBox({Key? key, required this.city}) : super(key: key);
+  const AdditionalInfoBox({Key? key, required this.current}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,12 @@ class AdditionalInfoBox extends StatelessWidget {
             FormattedText(
                 title: 'Humidity: ',
                 description:
-                    city?.humidity != null ? '${city?.humidity}%' : ' - ',
+                    current?.humidity != null ? '${current?.humidity}%' : ' - ',
                 scale: 1.1),
             FormattedText(
                 title: 'Wind Speed: ',
                 description:
-                    city?.windKph != null ? '${city?.windKph} km/hour' : ' - ',
+                    current?.windKph != null ? '${current?.windKph} km/hour' : ' - ',
                 scale: 1.1),
           ],
         ));

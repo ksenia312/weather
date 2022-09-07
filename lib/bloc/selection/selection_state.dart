@@ -4,7 +4,7 @@ part of 'selection_bloc.dart';
 abstract class SelectionState {
   List<SelectionModel?> get selections => [];
 
-  String? get err => null;
+  String? get error => null;
 }
 
 class SelectionInit extends SelectionState {
@@ -27,10 +27,10 @@ class SelectionLoaded extends SelectionState {
 }
 
 class SelectionError extends SelectionState {
-  final String error;
+  final String err;
 
-  SelectionError({required this.error});
+  SelectionError({required this.err});
 
   @override
-  String get err => error;
+  String get error => err;
 }

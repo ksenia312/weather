@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/bloc/selection/selection_bloc.dart';
+import 'package:weather/data/models/selection_model.dart';
 import 'package:weather/data/repositories/selection_repository.dart';
 import 'package:weather/utils/delayer.dart';
 import 'package:weather/utils/bordered_container.dart';
@@ -32,7 +33,7 @@ class _CityPickerState extends State<CityPicker> {
     super.initState();
   }
 
-  void _selectOption(el) {
+  void _selectOption(SelectionModel? el) {
     setState(() {
       _currentOption = el?.name;
     });
@@ -114,7 +115,7 @@ class _CityPickerState extends State<CityPicker> {
 
   IconButton _clear(SelectionBloc bloc) => IconButton(
         color: Theme.of(context).textTheme.bodySmall?.color,
-        icon: Icon(
+        icon: const Icon(
           Icons.clear,
           size: 18.0,
         ),

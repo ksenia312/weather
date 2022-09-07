@@ -16,6 +16,7 @@ class AppTheme with ChangeNotifier {
         dividerColor: appColors.dividerColor,
         primaryColorLight: appColors.primaryLight,
         errorColor: appColors.error,
+        highlightColor: appColors.highlight,
         textTheme: _textTheme(appColors),
         iconTheme: IconThemeData(color: appColors.accentForeground),
         appBarTheme: _appBarTheme(appColors),

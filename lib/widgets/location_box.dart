@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:weather/data/models/city_model.dart';
+import 'package:weather/data/models/weather_model.dart';
 import 'package:weather/utils/formatted_text.dart';
 import 'package:weather/utils/bordered_container.dart';
 
 class LocationBox extends StatelessWidget {
-  final CityModel? city;
+  final WeatherModel? current;
 
-  const LocationBox({Key? key, required this.city}) : super(key: key);
+  const LocationBox({Key? key, required this.current}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class LocationBox extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         FormattedText(
-            title: '', description: city?.name ?? ' - ', isLarge: true),
-        FormattedText(title: 'Region: ', description: city?.region ?? ' - '),
-        FormattedText(title: 'County: ', description: city?.country ?? ' - '),
+            title: '', description: current?.city ?? ' - ', isLarge: true),
+        FormattedText(title: 'Region: ', description: current?.region ?? ' - '),
+        FormattedText(title: 'County: ', description: current?.country ?? ' - '),
       ],
     ));
   }

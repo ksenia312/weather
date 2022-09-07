@@ -8,17 +8,17 @@ part 'selection_event.dart';
 part 'selection_state.dart';
 
 class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
-  final SelectionRepository selectionModel;
+  final SelectionRepository selectionRepository;
 
-  SelectionBloc(this.selectionModel) : super(SelectionInit()) {
+  SelectionBloc(this.selectionRepository) : super(SelectionInit()) {
     on<LoadSelectionsEvent>((event, emit) async {
       emit(SelectionLoading());
       try {
         final currentSelections =
-            await selectionModel.loadSelections(event.value);
+            await selectionRepository.loadSelections(event.value);
         emit(SelectionLoaded(currentSelections: currentSelections));
       } catch (e) {
-        emit(SelectionError(error: e.toString()));
+        emit(SelectionError(err: e.toString()));
       }
     });
     on<SetInitEvent>((event, emit) async {

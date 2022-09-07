@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather/ui/city_screen/city_screen.dart';
+import 'package:weather/ui/weather_screen/weather_screen.dart';
 
 class AppNavigator {
   final BuildContext context;
@@ -10,7 +10,7 @@ class AppNavigator {
     FocusScope.of(context).unfocus();
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => CityScreen(
+        builder: (context) => WeatherScreen(
           city: city,
         ),
       ),

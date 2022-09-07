@@ -14,6 +14,8 @@ abstract class AppColors {
   get dividerColor {}
 
   get error {}
+
+  get highlight {}
 }
 
 class ColorsLight implements AppColors {
@@ -37,6 +39,9 @@ class ColorsLight implements AppColors {
 
   @override
   get error => const Color(0xFF8F0A31);
+
+  @override
+  get highlight => const Color(0xFF9F00FF);
 }
 
 class ColorsDark implements AppColors {
@@ -60,4 +65,7 @@ class ColorsDark implements AppColors {
 
   @override
   get error => const Color(0xFFFF9EC6);
+
+  @override
+  get highlight => const Color(0xFFDCACFF);
 }

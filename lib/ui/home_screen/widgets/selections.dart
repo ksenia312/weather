@@ -7,7 +7,7 @@ class Selections extends StatefulWidget {
 
   final String? currentOption;
 
-  final Function(SelectionModel?) selectOption;
+  final void Function(SelectionModel?) selectOption;
 
   const Selections(
       {Key? key,
@@ -32,7 +32,7 @@ class _SelectionsState extends State<Selections> {
                 ? widget.state.selections.map((el) => _option(el)).toList()
                 : widget.state is SelectionLoading
                     ? [const Center(child: CircularProgressIndicator())]
-                    : [Center(child: Text(widget.state.err ?? ''))],
+                    : [Center(child: Text(widget.state.error ?? ''))],
       ),
     );
   }

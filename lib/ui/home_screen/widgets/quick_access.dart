@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather/ui/city_screen/city_screen.dart';
 import 'package:weather/utils/navigator.dart';
 
 class QuickAccess extends StatefulWidget {

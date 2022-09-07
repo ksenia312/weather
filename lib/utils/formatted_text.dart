@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class FormattedText extends StatelessWidget {
-  final String title;
-  final String description;
+  final String? title;
+  final String? description;
   final bool isLarge;
   final double scale;
+  final TextAlign textAlign;
 
   const FormattedText(
       {Key? key,
-      required this.title,
-      required this.description,
+      this.title,
+      this.description,
       this.isLarge = false,
-      this.scale = 1.0})
+      this.scale = 1.0,
+      this.textAlign = TextAlign.start})
       : super(key: key);
 
   @override
@@ -21,6 +23,7 @@ class FormattedText extends StatelessWidget {
         : Theme.of(context).textTheme.bodySmall;
     return RichText(
       textScaleFactor: scale,
+      textAlign: textAlign,
       text: TextSpan(
         text: title,
         style: style!.copyWith(fontWeight: FontWeight.bold),
